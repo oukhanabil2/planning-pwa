@@ -1,0 +1,7 @@
+planning-pwa/
+├── index.html          (le fichier HTML complet)
+├── manifest.json       (corrigé pour GitHub)
+├── service-worker.js   (version pour web)
+├── style.css          (si vous en avez un)
+├── app.js             (si vous en avez un)
+└── 404.html           (optionnel mais recommandé)
