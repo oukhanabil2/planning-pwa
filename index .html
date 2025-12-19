@@ -713,5 +713,58 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 </script>
+    <script>
+// Script d'activation PWA pour GitHub Pages
+console.log('🚀 PWA GitHub Pages activée');
+
+// Détection installation
+let installPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('✅ PWA installable détectée!');
+    e.preventDefault();
+    installPrompt = e;
+    
+    // Afficher un bouton d'installation
+    const installBtn = document.createElement('button');
+    installBtn.innerHTML = '📱 INSTALLER L\'APP';
+    installBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #27ae60;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 50px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        z-index: 9999;
+    `;
+    
+    installBtn.onclick = () => {
+        if (installPrompt) {
+            installPrompt.prompt();
+            installPrompt.userChoice.then(choice => {
+                if (choice.outcome === 'accepted') {
+                    alert('🎉 Application installée avec succès!');
+                }
+                installPrompt = null;
+                installBtn.remove();
+            });
+        }
+    };
+    
+    document.body.appendChild(installBtn);
+    
+    // Message d'info
+    alert('📱 PWA PRÊTE !\n\nL\'application peut être installée.\nUtilisez l\'app 30 secondes ou cliquez sur le bouton vert.');
+});
+
+// Vérifier si déjà installée
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    console.log('✅ Déjà installée en mode standalone');
+}
+</script>
 </body>
 </html>
