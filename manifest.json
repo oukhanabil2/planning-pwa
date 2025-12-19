@@ -2,12 +2,10 @@
   "name": "Superviseur Planning",
   "short_name": "Superviseur",
   "description": "Gestion des plannings et agents",
-  "start_url": "index.html",
+  "start_url": "/planning-pwa/",
   "display": "standalone",
-  "background_color": "#2c3e50",
+  "background_color": "#1a1a2e",
   "theme_color": "#4361ee",
-  "orientation": "portrait",
-  "scope": "./",
   "icons": [
     {
       "src": "icon-192.png",
