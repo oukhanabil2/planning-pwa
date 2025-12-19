@@ -766,5 +766,154 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
     console.log('✅ Déjà installée en mode standalone');
 }
 </script>
+   <script>
+// === FORCE PWA INSTALL MENU ===
+console.log('🔧 Forcing PWA install menu...');
+
+let installPrompt = null;
+
+// 1. Capture the install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('✅ beforeinstallprompt fired!');
+    e.preventDefault();
+    installPrompt = e;
+    
+    // Show button after 3 seconds
+    setTimeout(showInstallButton, 3000);
+});
+
+// 2. Create a persistent install button
+function showInstallButton() {
+    // Remove existing button if any
+    const existingBtn = document.getElementById('forceInstallBtn');
+    if (existingBtn) existingBtn.remove();
+    
+    const installBtn = document.createElement('button');
+    installBtn.id = 'forceInstallBtn';
+    installBtn.innerHTML = '📱 INSTALLER L\'APP';
+    installBtn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 20px;
+        background: linear-gradient(135deg, #FF416C, #FF4B2B);
+        color: white;
+        border: none;
+        padding: 20px 25px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        z-index: 99999;
+        box-shadow: 0 6px 25px rgba(255, 65, 108, 0.6);
+        cursor: pointer;
+        animation: pulse 2s infinite;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+    
+    // Add pulse animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 6px 25px rgba(255, 65, 108, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(255, 65, 108, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 6px 25px rgba(255, 65, 108, 0.6); }
+        }
+        
+        #forceInstallBtn:hover {
+            animation: none;
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 65, 108, 0.9);
+        }
+    `;
+    document.head.appendChild(style);
+    
+    installBtn.onclick = () => {
+        if (installPrompt) {
+            installPrompt.prompt();
+            installPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('✅ User accepted install');
+                    installBtn.innerHTML = '✅ INSTALLÉ !';
+                    installBtn.style.background = '#27ae60';
+                    setTimeout(() => installBtn.remove(), 3000);
+                }
+                installPrompt = null;
+            });
+        } else {
+            // Manual instructions
+            const instructions = `
+📱 MANUEL D'INSTALLATION :
+
+1. Menu Chrome (⋮) en haut à droite
+2. Descendez jusqu'à trouver :
+   **"Ajouter à l'écran d'accueil"**
+3. Cliquez dessus
+4. Confirmez "Ajouter"
+
+Si l'option n'est pas visible :
+• Utilisez l'app 30 secondes de plus
+• Fermez et rouvrez Chrome
+• Essayez avec Firefox
+            `;
+            alert(instructions);
+        }
+    };
+    
+    document.body.appendChild(installBtn);
+}
+
+// 3. Auto-simulate engagement
+setTimeout(() => {
+    // Simulate clicks on menu items
+    const menuItems = document.querySelectorAll('.menu-item');
+    if (menuItems.length > 0) {
+        console.log('🔄 Simulating user engagement...');
+        
+        let currentIndex = 0;
+        const clickInterval = setInterval(() => {
+            // Remove active from all
+            menuItems.forEach(item => item.classList.remove('active'));
+            
+            // Add active to current
+            menuItems[currentIndex].classList.add('active');
+            
+            // Update page title
+            const pageTitle = document.getElementById('pageTitle');
+            if (pageTitle) {
+                pageTitle.textContent = menuItems[currentIndex].querySelector('span').textContent;
+            }
+            
+            // Move to next
+            currentIndex++;
+            
+            // Stop after all items
+            if (currentIndex >= menuItems.length) {
+                clearInterval(clickInterval);
+                menuItems[0].classList.add('active');
+                if (pageTitle) pageTitle.textContent = 'Tableau de bord';
+                
+                // Check if install prompt is now available
+                setTimeout(() => {
+                    if (installPrompt) {
+                        console.log('🎯 PWA ready after simulation!');
+                        alert('✅ PWA PRÊTE !\n\nLe bouton d\'installation devrait apparaître (bouton rouge en bas à droite).\nSinon, utilisez menu Chrome (⋮) → "Ajouter à l\'écran d\'accueil"');
+                    }
+                }, 1000);
+            }
+        }, 800); // 800ms per click
+    }
+}, 2000);
+
+// 4. Check if already installed
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    console.log('✅ Already installed as PWA');
+    document.body.innerHTML += `
+        <div style="position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#27ae60;color:white;padding:15px 25px;border-radius:10px;z-index:99999;font-weight:bold;">
+            ✅ Application déjà installée
+        </div>
+    `;
+}
+</script> 
 </body>
 </html>
