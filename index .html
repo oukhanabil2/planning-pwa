@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Superviseur Planning PWA</title>
     
-    <!-- PWA CONFIG -->
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2c3e50">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     
-    <!-- STYLES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- HEADER -->
     <header class="app-header">
         <div class="app-title">
             <i class="fas fa-calendar-alt"></i>
@@ -34,9 +31,7 @@
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
     <div class="app-container">
-        <!-- SIDEBAR -->
         <nav class="sidebar">
             <div class="user-info">
                 <i class="fas fa-user-circle"></i>
@@ -56,23 +51,7 @@
                     <i class="fas fa-calendar-week"></i>
                     <span>Planning</span>
                 </li>
-                <li class="menu-item" data-page="agents">
-                    <i class="fas fa-users"></i>
-                    <span>Agents</span>
-                </li>
-                <li class="menu-item" data-page="statistics">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Statistiques</span>
-                </li>
-                <li class="menu-item" data-page="conges">
-                    <i class="fas fa-umbrella-beach"></i>
-                    <span>Congés</span>
-                </li>
-                <li class="menu-item" data-page="equipment">
-                    <i class="fas fa-walkie-talkie"></i>
-                    <span>Équipement</span>
-                </li>
-            </ul>
+                </ul>
             
             <div class="app-footer">
                 <div>
@@ -86,32 +65,19 @@
             </div>
         </nav>
 
-        <!-- MAIN CONTENT -->
         <main class="main-content">
             <div class="page-header">
                 <h1 id="pageTitle">Tableau de bord</h1>
-                <div class="breadcrumb">
-                    <span>Superviseur Planning PWA</span>
-                </div>
             </div>
             
             <div id="pageContent">
                 <div class="welcome-card">
-                    <h2>
-                        <i class="fas fa-check-circle" style="color:#2ecc71"></i>
-                        PWA PRÊTE À L'INSTALLATION
-                    </h2>
-                    
-                    <p>Votre application de gestion de planning est maintenant configurée comme Progressive Web App.</p>
+                    <h2><i class="fas fa-check-circle" style="color:#2ecc71"></i> STATUT PWA</h2>
                     
                     <div class="pwa-status">
                         <div class="status-item" id="statusSw">
                             <i class="fas fa-sync fa-spin"></i>
                             <span>Service Worker : <strong>Vérification...</strong></span>
-                        </div>
-                        <div class="status-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Manifest : <strong>✓ Configuré</strong></span>
                         </div>
                         <div class="status-item" id="statusHttps">
                             <i class="fas fa-lock"></i>
@@ -123,17 +89,7 @@
                         </div>
                     </div>
                     
-                    <div class="instructions">
-                        <h3><i class="fas fa-mobile-alt"></i> POUR INSTALLER L'APPLICATION :</h3>
-                        <ol>
-                            <li>Utilisez l'application 30 secondes</li>
-                            <li>Menu Chrome (⋮) en haut à droite</li>
-                            <li>"Ajouter à l'écran d'accueil"</li>
-                            <li>Confirmez "Ajouter"</li>
-                        </ol>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 30px;">
+                    <div style="text-align: center;">
                         <button id="testBtn" class="btn-primary">
                             <i class="fas fa-bolt"></i>
                             <span>SIMULER L'USAGE</span>
@@ -144,7 +100,16 @@
         </main>
     </div>
 
-    <!-- SCRIPT -->
     <script src="app.js"></script>
+
+    <script>
+        window.onerror = function(msg, url, line) {
+            alert("Erreur détectée : " + msg + "\nFichier : " + url);
+        };
+        // Vérifie si le manifest répond bien
+        fetch('manifest.json').then(r => {
+            if(!r.ok) alert("Alerte : Le fichier manifest.json est introuvable (404) !");
+        });
+    </script>
 </body>
 </html>
