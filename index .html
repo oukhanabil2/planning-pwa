@@ -32,83 +32,14 @@
     </header>
 
     <div class="app-container">
-        <nav class="sidebar">
-            <div class="user-info">
-                <i class="fas fa-user-circle"></i>
-                <h3>Superviseur</h3>
-                <div class="connection-status">
-                    <i class="fas fa-wifi" id="wifiIcon"></i>
-                    <span id="networkStatus">Vérification...</span>
-                </div>
-            </div>
-            
-            <ul class="menu">
-                <li class="menu-item active" data-page="dashboard">
-                    <i class="fas fa-home"></i>
-                    <span>Tableau de bord</span>
-                </li>
-                <li class="menu-item" data-page="planning">
-                    <i class="fas fa-calendar-week"></i>
-                    <span>Planning</span>
-                </li>
-                </ul>
-            
-            <div class="app-footer">
-                <div>
-                    <i class="fas fa-database"></i>
-                    <span id="dbSize">0 KB</span>
-                </div>
-                <div id="swStatus">
-                    <i class="fas fa-sync"></i>
-                    <span>Service Worker...</span>
-                </div>
-            </div>
-        </nav>
-
-        <main class="main-content">
-            <div class="page-header">
-                <h1 id="pageTitle">Tableau de bord</h1>
-            </div>
-            
-            <div id="pageContent">
-                <div class="welcome-card">
-                    <h2><i class="fas fa-check-circle" style="color:#2ecc71"></i> STATUT PWA</h2>
-                    
-                    <div class="pwa-status">
-                        <div class="status-item" id="statusSw">
-                            <i class="fas fa-sync fa-spin"></i>
-                            <span>Service Worker : <strong>Vérification...</strong></span>
-                        </div>
-                        <div class="status-item" id="statusHttps">
-                            <i class="fas fa-lock"></i>
-                            <span>HTTPS : <strong>Vérification...</strong></span>
-                        </div>
-                        <div class="status-item" id="statusPwa">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Installation : <strong>En attente...</strong></span>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <button id="testBtn" class="btn-primary">
-                            <i class="fas fa-bolt"></i>
-                            <span>SIMULER L'USAGE</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-
-    <script>
-        window.onerror = function(msg, url, line) {
-            alert("Erreur détectée : " + msg + "\nFichier : " + url);
-        };
-        // Vérifie si le manifest répond bien
-        fetch('manifest.json').then(r => {
-            if(!r.ok) alert("Alerte : Le fichier manifest.json est introuvable (404) !");
-        });
-    </script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TEST PLANNING</title>
+</head>
+<body style="background: red; color: white; font-size: 30px;">
+    L'APPLICATION EST EN LIGNE !
+    <br>
+    Si vous voyez ce texte sur fond rouge, dites-le moi.
 </body>
 </html>
